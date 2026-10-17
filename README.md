@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Foodies Restaurant Ordering System — V1
 
 ## V1 scope
@@ -90,3 +91,6 @@ Foodies_V1/
 - V3: Payment, reviews, reports/charts, notifications
 
 Notes: Food menu uses sample data and remote Unsplash images. Payments, admin dashboard, order history, reviews, charts and notifications are intentionally outside V1.
+=======
+# RESTAURANT-ORDERING-SYSTEM-
+>>>>>>> ccce3be26a1adfadef4229c8cdab10c42d691688
