@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-wrap"><form class="auth-card" method="post">
+  <span class="brand-icon big">F</span><h1>{{ 'Create your account' if mode == 'register' else 'Welcome back!' }}</h1><p class="muted">{{ 'Register to start ordering' if mode == 'register' else 'Log in to continue to Foodies' }}</p>
+  {% if mode == 'register' %}<label>Full name<input name="name" required autocomplete="name" placeholder="Your name"></label>{% endif %}
+  <label>Email address<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
+  <label>Password<input type="password" name="password" required minlength="6" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" placeholder="At least 6 characters"></label>
+  <button class="button button-orange full" type="submit">{{ 'Create account' if mode == 'register' else 'Log in' }}</button>
+  <p class="muted center">{% if mode == 'register' %}Already registered? <a href="{{ url_for('login') }}">Log in</a>{% else %}New to Foodies? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}</p>
+</form></section>
+{% endblock %}

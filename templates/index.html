@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-label"><span class="brand-icon">F</span> Food</div>
+  <div class="hero-copy"><p>GOOD FOOD. GOOD MOOD.</p><h1>Order Food Online<br>in Vellore</h1><a class="button button-light" href="#menu">Explore menu ↓</a></div>
+</section>
+<section class="section">
+  <div class="section-heading"><h2>WHAT'S ON YOUR MIND?</h2><div class="arrows"><button data-scroll="categories" data-dir="-1" aria-label="Scroll categories left">‹</button><button data-scroll="categories" data-dir="1" aria-label="Scroll categories right">›</button></div></div>
+  <div class="category-row" id="categories">
+    {% for name, emoji in [('Biryani','🍛'),('Pizza','🍕'),('Dosa','🥞'),('Burgers','🍔'),('Chinese','🍜'),('Wraps','🌯'),('Desserts','🍰'),('South Indian','🥥')] %}
+    <button class="category" data-category="{{ name }}"><span>{{ emoji }}</span><b>{{ name }}</b></button>
+    {% endfor %}
+  </div>
+</section>
+<hr>
+<section class="section">
+  <div class="section-heading"><h2>TOP PICKS FOR YOU</h2><div class="arrows"><button data-scroll="restaurantRow" data-dir="-1" aria-label="Scroll left">‹</button><button data-scroll="restaurantRow" data-dir="1" aria-label="Scroll right">›</button></div></div>
+  <div class="restaurant-row" id="restaurantRow">
+    {% for food in menu[:4] %}<article class="restaurant-card"><img src="{{ food.image }}" alt="{{ food.name }}"><div class="card-body"><h3>{{ food.name }}</h3><p class="rating">✦ {{ food.rating }} <span>• 25-35 mins</span></p><p>{{ food.category }} · Freshly prepared</p><p>Vellore</p></div></article>{% endfor %}
+  </div>
+</section>
+<hr>
+<section class="section" id="menu">
+  <div class="section-heading"><h2>FOODIES MENU</h2><span class="muted">Fresh favourites, delivered</span></div>
+  <div class="filters"><div class="chips"><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="veg">Pure Veg</button><button class="chip" data-filter="fast">Top Rated 4.5+</button></div><label class="sort-label">Sort by <select id="sortSelect"><option value="relevance">Relevance</option><option value="rating">Rating</option><option value="low">Cost: Low to High</option><option value="high">Cost: High to Low</option></select></label></div>
+  <div class="food-grid" id="foodGrid">
+  {% for food in menu %}<article class="food-card" data-name="{{ food.name|lower }}" data-category="{{ food.category|lower }}" data-veg="{{ 'true' if food.veg else 'false' }}" data-rating="{{ food.rating }}" data-price="{{ food.price }}">
+    <img src="{{ food.image }}" alt="{{ food.name }}" loading="lazy"><div class="food-details"><div class="food-title"><h3>{{ food.name }}</h3><span class="veg-dot {{ 'veg' if food.veg else 'nonveg' }}"></span></div><p class="rating">★ {{ food.rating }} <span>• {{ food.category }}</span></p><div class="food-bottom"><strong>₹{{ food.price }}</strong><form action="{{ url_for('add_to_cart', item_id=food.id) }}" method="post"><button class="add-button">ADD +</button></form></div></div>
+  </article>{% endfor %}
+  </div>
+  <p class="empty-state" id="emptyState" hidden>No matching food found. Try another search.</p>
+</section>
+{% endblock %}

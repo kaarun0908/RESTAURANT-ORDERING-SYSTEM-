@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section cart-page"><h1>Your Cart</h1><p class="muted">Review your items before placing the order.</p>
+{% if items %}
+  <div class="cart-list">{% for item in items %}<article class="cart-item"><img src="{{ item.image }}" alt="{{ item.name }}"><div class="cart-item-info"><h3>{{ item.name }}</h3><p>₹{{ item.price }} each</p><form action="{{ url_for('update_cart', item_id=item.id) }}" method="post" class="quantity-form"><label>Qty <input type="number" name="quantity" min="0" max="99" value="{{ item.quantity }}"></label><button class="text-button">Update (0 removes)</button></form></div><strong>₹{{ item.subtotal }}</strong></article>{% endfor %}</div>
+  <div class="cart-total"><span>Total</span><strong>₹{{ total }}</strong></div><form action="{{ url_for('checkout') }}" method="post"><button class="button button-orange full">Place order · ₹{{ total }}</button></form>
+{% else %}<div class="empty-cart"><span>🛒</span><h2>Your cart is empty</h2><p>Add something tasty from the menu.</p><a class="button button-orange" href="{{ url_for('home') }}#menu">Browse menu</a></div>{% endif %}
+</section>
+{% endblock %}
